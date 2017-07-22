@@ -4,7 +4,7 @@
 
 == 概要
 
-A map represents an associative array of key/value pairs. It provides a fast read access (using an hashtable internally) and a convenient, dedicated syntax. Unlike the `hash!` datatype, a map is not a series, so does not have a concept of offset or positions. Conceptually, the `map!` datatype lies between the `hash!` and `object!` datatypes.
+map是一个拥有key/value的关联数组。它提供了一种快速获取(内部使用哈希表结构)、方便和专用的语法。和`hash!`不同的是，map不是一个序列，所以它不存在偏移和位置的说法。从概念上讲，`map!`是一种处于`hash!`和`object!`之间的数据类型。
 
 == 字面量语法
 ----
@@ -19,14 +19,14 @@ make map! <spec>
 
 <spec> : block of key/value pairs or an integer value
 ----
-If the _spec_ argument is an integer, an empty map! is created with a pre-allocated number of slots (usually in order to populate the map dynamically).
+如果_spec_是个整数，一个包含预分配大小的空map将会被返回。
 
-Notes:
+注意：
 
-* the map body or the spec block have to contain an *even* number of elements, or else, an error will be generated. 
-* values are not *reduced*, so construction syntax is required for some special values, like logic!.
+* map自身或spec block必须包含偶数个元素，否则会产生错误。
+* 值不是经过*reduce*产生的，所以某些值必须使用构造语法，比如`logic!`。
 
-Examples:
+例子：
 ----
 #(a: 1 b: 2)
 == #(
@@ -41,20 +41,20 @@ make map! [a 1 'b 2 "c" 3]
     "c" 3
 )
 ----
-If the key is of *any-word!* type, the key type is converted to *set-word!* in the map, in order to make the map content look more like pairs of keys with value assigned. Though, in order to access word keys, there is no requirement to provide a set-word, for practical reasons (easier construction, especially in paths), simple words can be used. Similarly, `keys-of` reflector (described in Reflection section below), will return words instead of set-words, as it simplifies further processing (especially matching operations are easier with words rather than set-words).
+如果key是*any-word!*类型，为了使map的内容看起来更像键值对，在map中key的类型会被转换为*set-word!*。要访问这些key，不需要再提供set-word，简单的word就够了。同样地，`keys-of`反射器会返回这些word，这大大简化了之后的处理过程(特别是匹配操作，匹配words比匹配set-words容易多了)。
 
-Notes:
+注意：
 
-* Like hash! and block!, map! is **case-preserving**, and **case-insensitive for lookup** by default.
-* If a `none` value is specified as value, the key will not be created (see "Deleting keys" section).
-* All the keys are deep copied on creation of the map.
-* Series! values are not copied on creation of the map, the choice is left to the user (this optimizes resources for the common use-case).
+* 和`hash!`以及`block!`一样, `map!`的查找操作默认是**大小写不敏感的**。
+* 如果指定了`none`作为value，那么相应的key不会被创建(参考“删除键”部分)。
+* 在创建map的时候所有的key都是深度拷贝的。
+* 在创建map的时候，如果value的值是序列，则value不会被深度拷贝。这个由用户自己决定是否优化(因为序列值可以在多处通用)。
 
-Another way to create a new map is to use the `copy` action on an existing one.
+另一种创建map的方式是使用`copy`动作来复制一个已有的map。
 
 == 获取值
 
-用路径：
+使用路径：
 ----
 <map>/<key>
 get '<map>/<key>
@@ -93,7 +93,7 @@ select/case m 'ab
 
 == 改变键和值
 
-Using paths:
+使用路径：
 ----
 <map>/<key>: <value>
 set '<map>/<key> <value>
@@ -103,36 +103,35 @@ set '<map>/<key> <value>
 <value> : any value
 ----
 
-Using modifying action:
+使用修改动作：
 ---- 
 put <map> <key> <value>
 
 <map> : map value
 <key> : any valid key value to a select a value in the map
 ----
-Making bulk changes:
+修改大量数据：
 ----
 extend <map> <spec>
 
 <map>  : a map value
 <spec> : block of name/value pairs (one or more pairs)
 ----
-
-All these write accesses are case-insensitive. In order to have a case-sensitive lookup, the `/case` refinement needs to be used where available:
+所有获取值的操作都是大小写不敏感的，如果想要区分大小写，需要用`/case`细化：
 ----
 set/case '<map>/<key> <value>
 put/case <map> <key> <value>
 extend/case <map> <spec>
 ----
 
-`extend` native can accept many keys at the same time, so it is convenient for bulk changes.
+`extend`可以一次性接收多个key，所以它很适合用来修改大量数据。
 
-Notes:
+注意：
 
-* setting a key that does not exist previously in the map, **will simply create it**.
-* adding an existing key will change the key value and not add a new one (case-insensitive matching by default).
+* 如果设置一个map中不存在的key，则会**自动创建它**.
+* 如果添加的key和map原有的key同名，则map中的key会被更新(默认情况下key是不区分大小写的)。
 
-Examples:
+例子：
 ----
 m: #(Ab: 2 aB: 5 ab: 10)
 m/ab: 3
@@ -198,7 +197,7 @@ m
 )
 ----
 
-注意：Construction syntax is required in the above example in order to pass a `none!` value and not a `word!` value (just one way to construct the spec block needed there).
+注意：上面例子中传递`none!`类型的值时必须使用构造语法。因为`none`是`none!`类型的值，`[d none]`表示`d`的值为`none`，而`[d #[none]]`表示`d`本身是`none`，即删除`d`。
 
 你也可以用`clear`一次性清空map：
 ----
