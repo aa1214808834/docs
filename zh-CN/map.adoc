@@ -2,18 +2,18 @@
 :toc:
 :numbered:
 
-== Abstract
+== 概要
 
 A map represents an associative array of key/value pairs. It provides a fast read access (using an hashtable internally) and a convenient, dedicated syntax. Unlike the `hash!` datatype, a map is not a series, so does not have a concept of offset or positions. Conceptually, the `map!` datatype lies between the `hash!` and `object!` datatypes.
 
-== Literal syntax
+== 字面量语法
 ----
 #(<key> <value>...)
 
 <key>   : hashed key, accepted types are: any-word!, any-string!, number!, char!, pair!, tuple!
 <value> : any-type! value
 ----
-== Creation syntax
+== 构造语法
 ----
 make map! <spec>
 
@@ -52,7 +52,7 @@ Notes:
 
 Another way to create a new map is to use the `copy` action on an existing one.
 
-== Retrieving values
+== 获取值
 
 Using paths:
 ----
@@ -91,7 +91,7 @@ select/case m 'ab
 == 10
 ----
 
-== Changing keys and values
+== 改变键和值
 
 Using paths:
 ----
@@ -175,7 +175,7 @@ m
 )
 ----
 
-== Deleting keys
+== 删除键
 
 In order to delete a key/value pair from a map, you simply set the key to `none` value using one of the available ways.
 
