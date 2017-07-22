@@ -54,7 +54,7 @@ Another way to create a new map is to use the `copy` action on an existing one.
 
 == 获取值
 
-Using paths:
+用路径：
 ----
 <map>/<key>
 get '<map>/<key>
@@ -63,21 +63,21 @@ get '<map>/<key>
 <key> : word key
 ----
 
-Using selecting action:
+用`select`动作：
 ---- 
 select <map> <key>
 
 <map> : map value
 <key> : any valid key type
 ----
-All these read accesses are case-insensitive. In order to have a case-sensitive lookup, the `/case` refinement needs to be used where available:
+所有获取值的操作都是大小写不敏感的，如果想要区分大小写，需要用`/case`细化：
 ----
 get/case '<map>/<key>
 select/case <map> <key>
 ----
-Trying to access a key not defined in a map will return a `none` value.
+如果访问一个map中不存在的key，结果将是`none`。
 
-Examples:
+例子：
 
 ----
 m: #(Ab: 2 aB: 5 ab: 10)
@@ -177,9 +177,9 @@ m
 
 == 删除键
 
-In order to delete a key/value pair from a map, you simply set the key to `none` value using one of the available ways.
+要删除map中的key/value，只要设置key为`none`即可，具体可以采用以下几种方式：
 
-Example:
+例子：
 ----
 m: #(a: 1 b 2 "c" 3 d: 99)
 m
@@ -198,9 +198,9 @@ m
 )
 ----
 
-NOTE: Construction syntax is required in the above example in order to pass a `none!` value and not a `word!` value (just one way to construct the spec block needed there).
+注意：Construction syntax is required in the above example in order to pass a `none!` value and not a `word!` value (just one way to construct the spec block needed there).
 
-It is also possible to delete all keys at same time using `clear` action:
+你也可以用`clear`一次性清空map：
 ----
 clear #(a 1 b 2 c 3)
 == #()
