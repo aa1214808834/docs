@@ -63,7 +63,7 @@ get '<map>/<key>
 <key> : word key
 ----
 
-用`select`动作：
+使用`select`动作：
 ---- 
 select <map> <key>
 
