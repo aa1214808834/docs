@@ -206,7 +206,7 @@ clear #(a 1 b 2 c 3)
 == #()
 ----
 
-== Reflection
+== 反射
 
 * `find` checks if a key is defined in a map and returns `true` if    found, or else `none`.
 
