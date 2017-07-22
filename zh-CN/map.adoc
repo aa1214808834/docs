@@ -208,27 +208,27 @@ clear #(a 1 b 2 c 3)
 
 == 反射
 
-* `find` checks if a key is defined in a map and returns `true` if    found, or else `none`.
+* `find` 检查map中是否存在指定的key。如果存在返回`true`，否则返回`none`。
 
  find #(a 123 b 456) 'b
  == true
 
-* `length?` returns the number of a key/value pairs in a map.
+* `length?` 返回map中key/value的个数。
 
  length? #(a 123 b 456)
  == 2
 
-* `keys-of` returns the list of keys from a map in a block (set-words are converted to words).
+* `keys-of` 返回包含map中所有key的block(set-words被转换为words)。
 
  keys-of #(a: 123 b: 456)
  == [a b]
 
-* `values-of` returns the list of values from a map in a block.
+* `values-of` 返回包含map中所有value的block。
 
  values-of #(a: 123 b: 456)
  == [123 456]
 
-* `body-of` returns all the key/value pairs from a map in a block.
+* `body-of` 返回包含map中所有key/value的block。
 
  body-of #(a: 123 b: 456)
  == [a: 123 b: 456]
