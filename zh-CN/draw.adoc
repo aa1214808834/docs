@@ -246,250 +246,248 @@ pen linear <color1> <offset> ... <colorN> <offset> <start> <end> <spread>
 <color1/N> : 渐变颜色列表 (tuple! word!).
 <offset>   : （可选）渐变色偏移 (float!).
 <start>    : （可选）起点 (pair!). 
-<end>      : （可选，与<start>一起配合）结束点(pair!).
+<end>      : （可选，与<start>一起配合）终点(pair!).
 <spread>   : （可选）传播方式 (word!).
 ----
 *描述*
 
 设置用于绘图操作的线性渐变. 传播方法接受以下值：`pad`，`repeat`，`reflect` (目前的“pad”与Windows平台的“repeat”相同).
 
-使用时，开始/结束点定义渐变画线的一行. 如果不使用开始/结束点,渐变将沿着当前绘制形状内的水平线绘制.
+使用时，起点/终点定义渐变画线的一行. 如果不使用起点/终点,渐变将沿着当前绘制形状内的水平线绘制.
 
-==== 径向梯度笔(Radial gradient pen)
+==== 径向渐变画笔(Radial gradient pen)
 
 *语法*
 ----
 pen radial <color1> <offset> ... <colorN> <offset> <center> <radius> <focal> <spread>
 
 <color1/N> : 渐变颜色列表 (tuple! word!).
-<offset>   : (optional) offset of gradient color (float!).
-<center>   : (optional) center point (pair!).
-<radius>   : (optional unless <center>) radius of the circle to paint along (integer! float!).
-<focal>    : (optional) focal point (pair!).
-<spread>   : (optional) spread method (word!).
+<offset>   : （可选）渐变色偏移 (float!).
+<center>   : （可选）中心点 (pair!).
+<radius>   : （可选，与<center>一起使用）圆的半径要绘制 (integer! float!).
+<focal>    : （可选）焦点 (pair!).
+<spread>   : （可选）传播方式 (word!).
 ----
-*Description*
+*描述*
 
-Sets a radial gradient to be used for drawing operations. The following values are accepted for the spread method: `pad`, `repeat`, `reflect` (currently `pad` is same as `repeat` for Windows platform).
+设置用于绘图操作的径向渐变. 传播方法接受以下值：`pad`，`repeat`，`reflect`(目前的“pad”与Windows平台的“repeat”相同).
 
-The radial gradient will be painted from focal point to the edge of a circle defined by center point and radius. The start color will be painted in focal point and the end color will be painted in the edge of the circle.
+径向渐变将从焦点到由中心点和半径定义的圆的边缘涂漆。 起始颜色将涂在焦点中，最终颜色将涂在圆的边缘.
 
-==== Diamond gradient pen
+==== 钻石渐变画笔(Diamond gradient pen)
 
-*Syntax*
+*语法*
 ----
 pen diamond <color1> <offset> ... <colorN> <offset> <upper> <lower> <focal> <spread>
 
-<color1/N> : list of colors for the gradient (tuple! word!).
-<offset>   : (optional) offset of gradient color (float!).
-<upper>    : (optional) upper corner of a rectangle. (pair!). 
-<lower>    : (optional unless <upper>) lower corner of a rectangle (pair!).
-<focal>    : (optional) focal point (pair!).
-<spread>   : (optional) spread method (word!).
+<color1/N> : 渐变颜色列表 (tuple! word!).
+<offset>   : （可选）渐变色偏移 (float!).
+<upper>    : （可选）矩形的上角. (pair!). 
+<lower>    : （可选，与<upper>一起使用）矩形的下角 (pair!).
+<focal>    : （可选）焦点 (pair!).
+<spread>   : （可选）传播方式 (word!).
 ----
-*Description*
+*描述*
 
-Sets a diamond-shaped gradient to be used for drawing operations. The following values are accepted for the spread method: `pad`, `repeat`, `reflect` (currently `pad` is same as `repeat` for Windows platform).
+设置用于绘图操作的菱形渐变. 传播方法接受以下值：`pad`，`repeat`，`reflect`(目前的“pad”与Windows平台的“repeat”相同).
 
-The diamond gradient will be painted from focal point to the edge of a rectangle defined by upper and lower. The start color will be painted in focal point and the end color will be painted in the edge of the circle.
+钻石渐变将从焦点绘制到由上角和下角定义的矩形的边缘. 起始颜色将涂在焦点中，最终颜色将涂在圆的边缘.
 
-==== Pattern pen
+==== 图案画笔(Pattern pen)
 
-*Syntax*
+*语法*
 ----
 pen pattern <size> <start> <end> <mode> [<commands>]
 
-<size>     : size of the internal image where <commands> will be drawn (pair!).
-<start>    : (optional) upper corner for crop section within internal image (pair!).
-<end>      : (optional) lower corner for crop section within internal image (pair!).
-<mode>     : (optional) tile mode (word!).
-<commands> : block of Draw commands to define the pattern.
+<size>     : 在的指定大小的内部图像上绘制 (pair!).
+<start>    : （可选）内部图像中裁剪部分的上角 (pair!).
+<end>      : （可选）内部图像中裁剪部分的下角 (pair!).
+<mode>     : （可选）瓦片(tile)模式(word!).
+<commands> : 使用绘制块命令来定义pattern.
 ----
-*Description*
+*描述*
 
-Sets a custom shape as pattern to be used for drawing operations. The following values are accepted for the tile mode: `tile` (default), `flip-x`, `flip-y`, `flip-xy`, `clamp`.
+将自定义形状设置为用于绘制操作的模式. 瓦片模式接受以下值：“tile”（默认），“flip-x”，“flip-y”，“flip-xy”，“clamp”。
+起点默认点为0x0，终点为“<size>”.
 
-Starting default point is 0x0 and ending point is `<size>`.
+==== 位图填充(Bitmap pen)
 
-==== Bitmap pen
-
-*Syntax*
+*语法*
 ----
 pen bitmap  <image> <start> <end> <mode>
 
-<image> : image used for tiling (image!).
-<start> : (optional) upper corner for crop section within image (pair!).
-<end>   : (optional) lower corner for crop section within image (pair!).
-<mode>  : (optional) tile mode (word!).
+<image> : 用于填充的图像 (image!).
+<start> : （可选）内部图像裁剪部分的上角 (pair!).
+<end>   : （可选）内部图像裁剪部分的下角 (pair!).
+<mode>  : （可选）瓦片模式 (word!).
 ----
-*Description*
+*描述*
 
-Sets an image as pattern to be used for drawing operations. The following values are accepted for the tile mode: `tile` (default), `flip-x`, `flip-y`, `flip-xy`, `clamp`.
+将图像设置为用于绘制操作的图案. 瓦片模式接受以下值：“tile”（默认），“flip-x”，“flip-y”，“flip-xy”，“clamp”。
 
-Starting default point is 0x0 and ending point is image's size.
+起点默认点为0x0，终点为图像大小.
 
-==== Turning off the pen
+==== 关闭画笔(Turning off the pen)
 
-*Syntax*
+*语法*
 ----
 pen off
 ----
-*Description*
+*描述*
 
-Stop all outline drawing operations for subsequent commands.
+停止后续命令的所有轮廓绘图操作。
 
-=== Fill-pen 
+=== 填充(Fill-pen)
 
-This command defines the filling mode for other commands requiring filling operations (closed shapes). Many different options are available from a simple color, to nested custom shapes and gradients.
+此命令定义了其他需要填充操作的命令（封闭形状）的填充模式. 简单的颜色、嵌套的自定义形状和渐变等多种不同的选项都可以使用.
 
-==== Color fill
+==== 颜色填充Color fill
 
-*Syntax*
+*语法*
 ----
 fill-pen <color>
 
-<color> : new color to use for filling (tuple! word!).
+<color> : 用于填充的新颜色 (tuple! word!).
 ----
-*Description*
+*描述*
 
-Selects the color to be used for filling operations. All closed shapes will get filled by the selected color until the fill pen is set to `off`.
+选择要用于填充操作的颜色. 所有封闭的形状将被所选颜色填充，直到颜色填充被设置为“off”.
 
-==== Linear gradient fill
+==== 渐变填充（Linear gradient fill）
 
-*Syntax*
+*语法*
 ----
 fill-pen linear <color1> <offset> ... <colorN> <offset> <start> <end> <spread>
 
-<color1/N> : list of colors for the gradient (tuple! word!).
-<offset>   : (optional) offset of gradient color (float!).
-<start>    : (optional) starting point (pair!). 
-<end>      : (optional unless <start>) ending point (pair!).
-<spread>   : (optional) spread method (word!).
+<color1/N> : 渐变颜色列表 (tuple! word!).
+<offset>   : （可选）渐变色偏移 (float!).
+<start>    : （可选）起点 (pair!). 
+<end>      : （可选，配合<start>一起使用）终点 (pair!).
+<spread>   : （可选）传播方式 (word!).
 ----
-*Description*
+*描述*
 
-Sets a linear gradient to be used for filling operations. The following values are accepted for the spread method: `pad`, `repeat`, `reflect` (currently `pad` is same as `repeat` for Windows platform).
+设置用于填充操作的线性渐变. 传播方法接受以下值：`pad`，`repeat`，`reflect`(目前的“pad”与Windows平台的“repeat”相同).
 
-When used, the start/end points define a line where the gradient paints along. If they are not used,
-the gradient will be paint along a horizontal line inside the shape currently drawing.
+使用时，起点/终点定义渐变画线的一行. 如果不使用起点/终点,渐变将沿着当前绘制形状内的水平线绘制. 
 
-==== Radial gradient fill
+==== 径向渐变填充(Radial gradient fill)
 
-*Syntax*
+*语法*
 ----
 fill-pen radial <color1> <offset> ... <colorN> <offset> <center> <radius> <focal> <spread>
 
-<color1/N> : list of colors for the gradient (tuple! word!).
-<offset>   : (optional) offset of gradient color (float!).
-<center>   : (optional) center point (pair!).
-<radius>   : (optional unless <center>) radius of the circle to paint along (integer! float!).
-<focal>    : (optional) focal point (pair!).
-<spread>   : (optional) spread method (word!).
+<color1/N> : 渐变颜色列表 (tuple! word!).
+<offset>   : （可选）渐变色偏移(float!).
+<center>   : （可选）中心点 (pair!).
+<radius>   : （可选，与<center>配合使用）半径 (integer! float!).
+<focal>    : （可选）焦点 (pair!).
+<spread>   : （可选）传播方式 (word!).
 ----
-*Description*
+*描述*
 
-Sets a radial gradient to be used for filling operations. The following values are accepted for the spread method: `pad`, `repeat`, `reflect` (currently `pad` is same as `repeat` for Windows platform).
+设置用于填充操作的径向渐变. 传播方法接受以下值：`pad`，`repeat`，`reflect` (目前的“pad”与Windows平台的“repeat”相同).
 
-The radial gradient will be painted from focal point to the edge of a circle defined by center point and radius. The start color will be painted in focal point and the end color will be painted in the edge of the circle.
+径向渐变将从焦点到由中心点和半径定义的圆的边缘涂漆. 起始颜色将涂在焦点中，最终颜色将涂在圆的边缘.
 
-==== Diamond gradient fill
+==== 钻石渐变填充(Diamond gradient fill)
 
-*Syntax*
+*语法*
 ----
 fill-pen diamond <color1> <offset> ... <colorN> <offset> <upper> <lower> <focal> <spread>
 
-<color1/N> : list of colors for the gradient (tuple! word!).
-<offset>   : (optional) offset of gradient color (float!).
-<upper>    : (optional) upper corner of a rectangle. (pair!). 
-<lower>    : (optional unless <upper>) lower corner of a rectangle (pair!).
-<focal>    : (optional) focal point (pair!).
-<spread>   : (optional) spread method (word!).
+<color1/N> : 渐变颜色列表 (tuple! word!).
+<offset>   : （可选）渐变色偏移 (float!).
+<upper>    : （可选）矩形的上角. (pair!). 
+<lower>    : （可选，与<upper>配合使用）矩形的下角 (pair!).
+<focal>    : （可选）焦点 (pair!).
+<spread>   : （可选）传播方式 (word!).
 ----
-*Description*
+*描述*
 
-Sets a diamond-shaped gradient to be used for filling operations. The following values are accepted for the spread method: `pad`, `repeat`, `reflect` (currently `pad` is same as `repeat` for Windows platform).
+设置用于填充操作的菱形渐变。 传播方法接受以下值：`pad`，`repeat`，`reflect` (目前的“pad”与Windows平台的“repeat”相同).
 
-The diamond gradient will be painted from focal point to the edge of a rectangle defined by upper and lower. The start color will be painted in focal point and the end color will be painted in the edge of the circle.
+钻石渐变将从焦点绘制到由上部和下部定义的矩形的边缘. 起始颜色将涂在焦点中，最终颜色将涂在圆的边缘.
 
-==== Pattern fill
+==== 图案填充(Pattern fill)
 
-*Syntax*
+*语法*
 ----
 fill-pen pattern <size> <start> <end> <mode> [<commands>]
 
-<size>     : size of the internal image where <commands> will be drawn (pair!).
-<start>    : (optional) upper corner for crop section within internal image (pair!).
-<end>      : (optional) lower corner for crop section within internal image (pair!).
-<mode>     : (optional) tile mode (word!).
-<commands> : block of Draw commands to define the pattern.
+<size>     : 在的指定大小的内部图像上绘制 (pair!).
+<start>    : （可选）内部图像中裁剪部分的上角 (pair!).
+<end>      : （可选）内部图像中裁剪部分的下角 (pair!).
+<mode>     : （可选）瓦片模式 (word!).
+<commands> : 使用绘制块命令来定义pattern .
 ----
-*Description*
+*描述*
 
-Sets a custom shape as pattern to be used for filling operations. The following values are accepted for the tile mode: `tile` (default), `flip-x`, `flip-y`, `flip-xy`, `clamp`.
+将自定义形状的图案设置为用于填充操作. 瓦片模式接受以下值：“tile”（默认），“flip-x”，“flip-y”，“flip-xy”，“clamp”。
 
-Starting default point is 0x0 and ending point is `<size>`.
+启动默认点为0x0，终点为“<size>”.
 
-==== Bitmap fill
+==== 位图填充(Bitmap fill)
 
-*Syntax*
+*语法*
 ----
 fill-pen bitmap  <image> <start> <end> <mode>
 
-<image> : image used for tiling (image!).
-<start> : (optional) upper corner for crop section within image (pair!).
-<end>   : (optional) lower corner for crop section within image (pair!).
-<mode>  : (optional) tile mode (word!).
+<image> : 用于填充的图像 (image!).
+<start> : （可选）图像裁剪部分的上角 (pair!).
+<end>   : （可选）图像裁剪部分的下角 (pair!).
+<mode>  : （可选）瓦片模式 (word!).
 ----
-*Description*
+*描述*
 
-Sets an image as pattern to be used for filling operations. The following values are accepted for the tile mode: `tile` (default), `flip-x`, `flip-y`, `flip-xy`, `clamp`.
+将图像设置为用于填充操作的图案. 瓦片模式接受以下值：“tile”（默认），“flip-x”，“flip-y”，“flip-xy”，“clamp”。
 
-Starting default point is 0x0 and ending point is image's size.
+起点默认点为0x0，终点为图像大小。
 
-==== Turning off the filling
+==== 关闭填充(Turning off the filling)
 
-*Syntax*
+*语法*
 ----
 fill-pen off
 ----
-*Description*
+*描述*
 
-Stop all filling operations for subsequent commands.
+停止后续命令的所有填充操作。
 
-=== Line-width 
+=== 线宽(Line-width) 
 
-*Syntax*
+*语法*
 ----
 line-width <value>
 
-<value> : new line width in pixels (integer!).
+<value> : 线宽值（以像素为单位） (integer!).
 ----
-*Description*
+*描述*
 
-Sets the new width for line operations.
+设置新的画线宽度。
 
-=== Line-join 
+=== 连线(Line-join) 
 
-*Syntax*
+*语法*
 ----
 line-join <mode>
 
-<mode> : new line joining mode (word!).
+<mode> : 连线模式 (word!).
 ----
-*Description*
+*描述*
 
-Sets the new line joining mode for line operations. Following values are accepted:
+给画线操作设置连接模式. 以下值被接受:
 
-* `miter` (default)
+* `miter` (默认)
 * `round`
 * `bevel`
 * `miter-bevel`
 
 image::../images/line-join.png[Line-join,align="center"]
 
-NOTE: `miter-bevel` mode selects automatically one or the other joining mode depending on the miter length (See https://msdn.microsoft.com/en-us/library/windows/desktop/ms534148%28v=vs.85%29.aspx[this page] for detailed explanation) .
+注: `miter-bevel` 模式将自动选择一个或另一个连接模式取决于斜角长度 (查阅 https://msdn.microsoft.com/en-us/library/windows/desktop/ms534148%28v=vs.85%29.aspx[this page] 有详细说明) .
 
-=== Line-cap 
+=== 线帽Line-cap 
 
 *Syntax*
 ----
