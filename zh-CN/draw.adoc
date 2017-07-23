@@ -56,6 +56,7 @@ triangle <point> <point> <point>
 === 矩形(Box)
 
 *语法*
+
 ----
 box <top-left> <bottom-right>
 box <top-left> <bottom-right> <corner>
@@ -71,6 +72,7 @@ box <top-left> <bottom-right> <corner>
 === 多边形(Polygon)
 
 *语法*
+
 ----
 polygon <point> <point> ...
 
@@ -83,6 +85,7 @@ polygon <point> <point> ...
 === 圆形(Circle)
  
 *语法*
+
 ----
 circle <center> <radius>
 circle <center> <radius-x> <radius-y>
@@ -98,6 +101,7 @@ circle <center> <radius-x> <radius-y>
 === 椭圆(Ellipse) 
 
 *语法*
+
 ----
 ellipse <top-left> <size>
 
@@ -113,6 +117,7 @@ ellipse <top-left> <size>
 === 弧(Arc)
 
 *语法*
+
 ----
 arc <center> <radius> <begin> <sweep>
 arc <center> <radius> <begin> <sweep> closed
@@ -129,6 +134,7 @@ arc <center> <radius> <begin> <sweep> closed
 === 曲线(Curve) 
 
 *语法*
+
 ----
 curve <end-A> <control-A> <end-B>
 curve <end-A> <control-A> <control-B> <end-B>
@@ -150,6 +156,7 @@ curve <end-A> <control-A> <control-B> <end-B>
 === 样条曲线(Spline) 
 
 *语法*
+
 ----
 spline <point> <point> ...
 spline <point> <point> ... closed
@@ -160,11 +167,12 @@ spline <point> <point> ... closed
 
 使用一系列点绘制一个B样条曲线. 需要至少3个点才能生成花键. 可选的“closed”关键字将从终点到起点绘制一个额外的段，以便关闭样条.
 
-注: 2个点也可以被接受，但只能生成一条直线.
+NOTE: 2个点也可以被接受，但只能生成一条直线.
 
 === 图片(Image) 
 
 *语法*
+
 ----
 image <image>
 image <image> <top-left>
@@ -197,6 +205,7 @@ image <image> <top-left> <top-right> <bottom-left> <bottom-right> <color> crop <
 === 文本(Text) 
 
 *语法*
+
 ----
 text <position> <string>
 
@@ -212,6 +221,7 @@ text <position> <string>
 === 字体(Font)
 
 *语法*
+
 ----
 font <font>
 
@@ -229,6 +239,7 @@ This command defines the outlines drawing mode for other commands. Many differen
 ==== 线条色(Color pen)
 
 *语法*
+
 ----
 pen <color>
 
@@ -241,6 +252,7 @@ pen <color>
 ==== 线性渐变色画笔(Linear gradient pen)
 
 *语法*
+
 ----
 pen linear <color1> <offset> ... <colorN> <offset> <start> <end> <spread>
 
@@ -259,6 +271,7 @@ pen linear <color1> <offset> ... <colorN> <offset> <start> <end> <spread>
 ==== 径向渐变画笔(Radial gradient pen)
 
 *语法*
+
 ----
 pen radial <color1> <offset> ... <colorN> <offset> <center> <radius> <focal> <spread>
 
@@ -278,6 +291,7 @@ pen radial <color1> <offset> ... <colorN> <offset> <center> <radius> <focal> <sp
 ==== 钻石渐变画笔(Diamond gradient pen)
 
 *语法*
+
 ----
 pen diamond <color1> <offset> ... <colorN> <offset> <upper> <lower> <focal> <spread>
 
@@ -297,6 +311,7 @@ pen diamond <color1> <offset> ... <colorN> <offset> <upper> <lower> <focal> <spr
 ==== 图案画笔(Pattern pen)
 
 *语法*
+
 ----
 pen pattern <size> <start> <end> <mode> [<commands>]
 
@@ -314,6 +329,7 @@ pen pattern <size> <start> <end> <mode> [<commands>]
 ==== 位图填充(Bitmap pen)
 
 *语法*
+
 ----
 pen bitmap  <image> <start> <end> <mode>
 
@@ -331,6 +347,7 @@ pen bitmap  <image> <start> <end> <mode>
 ==== 关闭画笔(Turning off the pen)
 
 *语法*
+
 ----
 pen off
 ----
@@ -345,6 +362,7 @@ pen off
 ==== 颜色填充Color fill
 
 *语法*
+
 ----
 fill-pen <color>
 
@@ -357,6 +375,7 @@ fill-pen <color>
 ==== 渐变填充（Linear gradient fill）
 
 *语法*
+
 ----
 fill-pen linear <color1> <offset> ... <colorN> <offset> <start> <end> <spread>
 
@@ -375,6 +394,7 @@ fill-pen linear <color1> <offset> ... <colorN> <offset> <start> <end> <spread>
 ==== 径向渐变填充(Radial gradient fill)
 
 *语法*
+
 ----
 fill-pen radial <color1> <offset> ... <colorN> <offset> <center> <radius> <focal> <spread>
 
@@ -394,6 +414,7 @@ fill-pen radial <color1> <offset> ... <colorN> <offset> <center> <radius> <focal
 ==== 钻石渐变填充(Diamond gradient fill)
 
 *语法*
+
 ----
 fill-pen diamond <color1> <offset> ... <colorN> <offset> <upper> <lower> <focal> <spread>
 
@@ -413,6 +434,7 @@ fill-pen diamond <color1> <offset> ... <colorN> <offset> <upper> <lower> <focal>
 ==== 图案填充(Pattern fill)
 
 *语法*
+
 ----
 fill-pen pattern <size> <start> <end> <mode> [<commands>]
 
@@ -431,6 +453,7 @@ fill-pen pattern <size> <start> <end> <mode> [<commands>]
 ==== 位图填充(Bitmap fill)
 
 *语法*
+
 ----
 fill-pen bitmap  <image> <start> <end> <mode>
 
@@ -448,6 +471,7 @@ fill-pen bitmap  <image> <start> <end> <mode>
 ==== 关闭填充(Turning off the filling)
 
 *语法*
+
 ----
 fill-pen off
 ----
@@ -458,6 +482,7 @@ fill-pen off
 === 线宽(Line-width) 
 
 *语法*
+
 ----
 line-width <value>
 
@@ -470,6 +495,7 @@ line-width <value>
 === 连线(Line-join) 
 
 *语法*
+
 ----
 line-join <mode>
 
@@ -490,13 +516,14 @@ image::../images/line-join.png[Line-join,align="center"]
 
 === 线的两端的样式Line-cap 
 
-*Syntax*
+*语法*
+
 ----
 line-cap <mode>
 
 <mode> : new line cap mode (word!).
 ----
-*Description*
+*描述*
 
 给绘制线条操作设置线两端的样式. 以下值被接受:
 
@@ -508,7 +535,8 @@ image::../images/line-cap.png[Line-cap,align="center"]
 
 === Anti-alias 
 
-*Syntax*
+*语法*
+
 ----
 anti-alias <mode>
 
