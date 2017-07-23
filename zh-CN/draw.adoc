@@ -1,118 +1,117 @@
-= Draw dialect
+= Draw 方言
 :imagesdir: ../images
 :toc:
 :toclevels: 3
 :numbered:
 
 
-== Abstract 
+== 摘要(Abstract) 
 
-Draw is a dialect (DSL) of Red language that provides a simple declarative way to specify 2D drawing operations. Such operations are expressed as lists of ordered commands (using blocks of values), which can be freely constructed and changed at run-time.
+Draw 是Red语言的一个方言 (DSL) 用于提供一个简单的声明方式来进行2D绘图操作. 这些操作表示为有序命令的列表 (用值块表示或称为绘制块、绘图块), 可以在运行时自由构建和更改.
 
-Draw blocks can be rendered directly on top of an image using the `draw` function, or inside a View face using the `draw` facet (see link:view.html[View documentation]).
+绘图块可以使用`draw`函数直接渲染在图像的顶部, 或在View face内使用“draw” facet (相关链接: link:view.html[View 文档]).
 
-== Draw commands
+== 绘图命令(Draw commands)
 
-Commands can either be drawing instructions or settings for the drawing instructions. When a mode is set, it will affect all subsequent operations in the current Draw session (or until changed).
+命令可以是绘图命令或绘图模式的设置. 当设置模式时, 它将影响当前Draw会话中的所有后续操作（直到被更改）.
 
-Most Draw commands require coordinates to be specified. The 2D coordinate system used is:
+大多数绘图命令需要指定坐标. 使用的二维坐标系统如图:
 
-* x axis: increasing from left to right of the display.
-* y axis: increasing from top to bottom of the display.
+* x轴：从显示器的左到右增加.
+* y轴：从显示器的上到下增加.
 
-Some drawing commands require lengths to be specified. The length required is number of pixels.
+一些绘图命令需要指定长度(以像素为单位).
 
 image::../images/coord-system.png[Coord-system,align="center"]
 
 
-=== Line 
+=== 线(Line) 
 
-*Syntax*
+*语法*
 
 ----
 line <point> <point> ...
 
-<point> : coordinates of a point (pair!).
+<point> : 坐标点,类型为(pair!).
 ----
-*Description*
+*描述*
 
-Draws a line between two points. If more points are specified, additional lines are drawn, connecting each point in the provided order.
+在两点之间画一条线. 如果指定了更多的点，则以提供的顺序两两相连绘制更多的线.
 
-=== Triangle 
+=== 三角形(Triangle)
 
-*Syntax*
+*语法*
 ----
 triangle <point> <point> <point>
 
-<point> : coordinates of a vertex of the triangle (pair!).
+<point> : 坐标点,三角形的顶点之一,类型为(pair!).
 ----
-NOTE: A vertex is the point at which two lines meet. They are points where edges join.
 
-*Description*
 
-Draws a triangle with edges between the supplied vertices.
+*描述*
 
-=== Box 
+在提供的三个坐标点之间绘制一个三角形.
 
-*Syntax*
+=== 矩形(Box)
+
+*语法*
 ----
 box <top-left> <bottom-right>
 box <top-left> <bottom-right> <corner>
 
-<top-left>     : coordinates of the top-left of the box (pair!).
-<bottom-right> : coordinates of the bottom-right of the box (pair!).
-<corner>       : (optional) radius of the arc used to draw a round corner (integer!).
+<top-left>     : 矩形左上角的坐标点,类型为 (pair!).
+<bottom-right> : 矩形右下角的坐标点,类型为 (pair!).
+<corner>       : (可选) 指定一个圆弧半径用来画一个圆角,类型为 (integer!).
 ----
-*Description*
+*描述*
 
-Draws a box using the top-left (first argument) and bottom-right (second argument) vertices. An optional radius can be provided for making round corners.
+使用左上角（第一个参数）和右下角（第二个参数）顶点绘制一个矩形框。 可以指定一个圆弧半径用来画一个圆角.
 
-=== Polygon 
+=== 多边形(Polygon)
 
-*Syntax*
+*语法*
 ----
 polygon <point> <point> ...
 
-<point> : coordinates of a vertex (pair!).
+<point> : 一个顶点的坐标,类型为 (pair!).
 ----
-*Description*
+*描述*
 
-Draws a polygon using the provided vertices. The last point does not need to be the starting point, an extra line will be drawn anyway to close the polygon. Minimal number of points to be provided is 3.
+使用提供的顶点绘制多边形.  至少要提供的3个顶点的坐标.
 
-=== Circle
+=== 圆形(Circle)
  
-*Syntax*
+*语法*
 ----
 circle <center> <radius>
 circle <center> <radius-x> <radius-y>
 
-<center>   : coordinates of the circle's center (pair!).
-<radius>   : radius of the circle (integer! float!).
-<radius-x> : (ellipse mode) radius of the circle along X axis (integer! float!).
-<radius-y> : (ellipse mode) radius of the circle along Y axis (integer! float!).
+<center>   : 圆的中心坐标,类型为 (pair!).
+<radius>   : 圆的半径,类型可以是 (integer! float!).
+<radius-x> : (椭圆) 沿X轴的圆的半径 ,类型可以是(integer! float!).
+<radius-y> : (椭圆) 沿Y轴的圆的半径 ,类型可以是(integer! float!).
 ----
-*Description*
+*描述*
 
-Draws a circle from the provided center and radius values. The circle can be distorted to form an ellipse by adding an optional integer indicating the radius along Y axis (the other radius argument then becomes the radius along X).
+用提供的中心坐标和半径值绘制一个圆. 通过指定Y轴、X轴半径的整数可以使圆形变形成椭圆形 
+=== 椭圆(Ellipse) 
 
-=== Ellipse 
-
-*Syntax*
+*语法*
 ----
 ellipse <top-left> <size>
 
-<top-left> : coordinates of the ellipse's bounding box top-left point (pair!).
-<size>     : size of the bounding box (pair!).
+<top-left> : 椭圆的边框左上角的坐标 (pair!).
+<size>     : 椭圆边框的大小 (pair!).
 ----
-*Description*
+*描述*
 
-Draws an ellipse from the specified bounding box. The `size` argument represents the X and Y diameters of the ellipse.
+从指定的边框绘制一个椭圆. “size”参数相当于椭圆的X和Y直径.
 
-NOTE: `ellipse` provide a more compact and box-oriented way to specify a circle/ellipse compared to `circle` command.
+注: 与“circle”命令相比，“ellipse”提供了一种更紧凑和面向盒子的方式来指定一个圆/椭圆.
 
-=== Arc 
+=== 弧(Arc)
 
-*Syntax*
+*语法*
 ----
 arc <center> <radius> <begin> <sweep>
 arc <center> <radius> <begin> <sweep> closed
@@ -122,7 +121,7 @@ arc <center> <radius> <begin> <sweep> closed
 <begin>  : starting angle in degrees (integer!).
 <sweep>  : angle between the starting and ending points of the arc in degrees (integer!).
 ----
-*Description*
+*描述*
 
 Draws the arc of a circle from the provided center and radius values. The arc is defined by two angles values. An optional `closed` keyword can be used to draw a closed arc using two lines coming from the center point.
 
