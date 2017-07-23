@@ -41,6 +41,7 @@ line <point> <point> ...
 === 三角形(Triangle)
 
 *语法*
+
 ----
 triangle <point> <point> <point>
 
