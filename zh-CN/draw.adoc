@@ -735,7 +735,7 @@ transform 'fill-pen <angle> <center> <scale-x> <scale-y> <translation>
 
 当 `'pen` 或 `'fill-pen` 原字(lit-words) 被使用时, 该转换分别应用于当前画笔或当前的填充笔.
 
-=== 剪切(Clip)
+=== 裁剪(Clip)
 
 *语法*
 
@@ -743,145 +743,154 @@ transform 'fill-pen <angle> <center> <scale-x> <scale-y> <translation>
 clip <start> <end> <mode> [<commands>]
 clip [<shape>] <mode> [<commands>]
 
-<start>    : top-left corner point of clipping area (pair!)
-<end>      : bottom-right corner point of clipping area (pair!)
-<mode>     : (optional) merging mode between clipped regions (word!)
-<commands> : (optional) Draw dialect commands.
-<shape>    : Shape dialect commands.
+<start>    : 左上角为起点 (pair!)
+<end>      : 右下角为终点 (pair!)
+<mode>     : （可选）合并模式 (word!)
+<commands> : （可选）Draw方言命令.
+<shape>    : Shape 方言命令.
 ----
 *描述*
 
-剪切一个用两点定义的矩形区域（起点和终点）或 由Shape子方言命令块定义的任意形状的区域. Such clipping applies to all subsequent Draw commands. When a block is provided as last argument, the clipping will be applied only to the commands in that block.
+裁剪一个用两点定义的矩形区域（起点和终点）或 由Shape子方言命令块定义的任意形状的区域. 此裁剪适用于所有后续绘制命令. 当一个命令块作为最后一个参数提供时, 裁剪将仅应用于该块中的命令.
 
-Additionally, the combining mode between a new clipping region and the previous one, can be set to one of the following:
+另外, 新的裁剪区域和前一个裁剪区域之间的组合模式, 可以设置为以下之一:
 
-* `replace` (default)
+* `replace` (默认)
 * `intersect`
 * `union`
 * `xor`
 * `exclude`
 
 
-== Shape commands
+== Shape 命令(Shape commands)
 
-*Syntax*
+*语法*
+
 ----
 shape [<commands>]
 
-<commands> : shape dialect commands.
+<commands> : shape 方言命令.
 ----
-*Description*
+*描述*
 
-The `shape` keywords gives access to the Shape sub-dialect drawing commands. The specific features of this drawing dialect are: 
+`shape` 关键字可以访问Shape子方言绘图命令(原文:The `shape`  keywords gives access to the Shape sub-dialect drawing commands). 这种绘图方言的具体特点是: 
 
-* the pen position for drawing can be moved independently of drawing operations.
-* each drawing command starts from the current pen position.
-* shapes are automatically closed (no need to draw the last stroke back to start position).
-* the generated shapes can be fed to `fill-pen` for simple or sophisticated filling.
-* coordinates can be absolute (like in Draw) or relative to the last pen position.
+* 绘图画笔(pen)的位置可以独立于绘图操作移动.(原文:the pen position for drawing can be moved independently of drawing operations.)
+* 每个绘图命令从当前笔位置开始.(原文:each drawing command starts from the current pen position.)
+* 形状能被自动关闭（无需绘制最后一个笔划回到起始位置）(原文:shapes are automatically closed (no need to draw the last stroke back to start position).)
+* 生成的形状可以被馈送到“fill-pen”以进行简单或复杂的填充.(原文:the generated shapes can be fed to `fill-pen` for simple or sophisticated filling.)
+* 坐标可以是绝对的（如在Draw中）或相对于最后一个笔位置.(原文:coordinates can be absolute (like in Draw) or relative to the last pen position.)
 
-NOTE: All drawing commands are using absolute coordinates by default, using the lit-word version of the command switches the command to relative coordinates.
+NOTE: 默认情况下，所有绘图命令都使用绝对坐标, 使用原字(lit-word)版本的命令将命令切换到相对坐标.(原文:using the lit-word version of the command switches the command to relative coordinates.)
 
-=== Move
+=== 移动(Move)
 
-*Syntax*
+*语法*
+
 ----
  move <position>            (absolute)
 'move <position>            (relative)
 
-<position> : new pen position (pair!).
+<position> : 新的画笔位置 (pair!).
 ----
-*Description*
+*描述*
 
-Moves the pen to a new position. No drawing happens.
+将笔移到新位置. 不进行绘图.
 
-=== Line
+=== 线(Line)
 
-*Syntax*
+*语法*
+
 ----
  line <point> <point> ...   (absolute)
 'line <point> <point> ...   (relative)
 
-<point> : coordinates of a point (pair!).
+<point> : 坐标点 (pair!).
 ----
-*Description*
+*描述*
 
-Draws a line between two points. If more points are specified, additional lines are drawn, connecting each point in the provided order.
+在两点之间画一条线. 如果指定了更多的点，则按顺序两两相连,绘制附加的线
 
-=== Arc
+=== 弧线(Arc)
 
-*Syntax*
+*语法*
+
 ----
  arc <end> <radius-x> <radius-y> <angle> sweep closed       (absolute)
 'arc <end> <radius-x> <radius-y> <angle> sweep closed       (relative)
 
-<end>      : arc's end point (pair!).
-<radius-x> : radius of the circle along x axis (integer! float!).
-<radius-y> : x coordinate of radius of the circle (integer! float!).
-<angle>    : angle between the starting and ending points of the arc in degrees (integer! float!).
-sweep      : (optional) draw the arc in the positive angle direction.
-large      : (optional) produces an inflated arc (goes with 'sweep option).
+<end>      : 弧线的终点 (pair!).
+<radius-x> : 沿x轴的圆半径 (integer! float!).
+<radius-y> : 沿y轴的圆半径 (integer! float!).
+<angle>    : 弧度的起点和终点之间的角度以度为单位 (integer! float!).
+sweep      : （可选）在正角度方向绘制弧.
+large      : （可选）产生一个膨胀的弧 (随着'sweep 选项一起使用).
 
 ----
-*Description*
+*描述*
 
-Draws the arc of a circle between the current pen position and the end point, using radius values. The arc is defined by one angle value.
+在当前笔位置和终点之间用半径值绘制圆弧,弧由一个角度值定义.(原文:Draws the arc of a circle between the current pen position and the end point, using radius values. The arc is defined by one angle value.)
 
-=== Curve
+=== 曲线(Curve)
 
-*Syntax*
+*语法*
+
 ----
  curve <point> <point> <point> ...   (absolute)
 'curve <point> <point> <point> ...   (relative)
 
-<point> : coordinates of a point (pair!).
+<point> : 坐标点 (pair!).
 ----
-*Description*
+*描述*
 
-Draws a cubic Bezier curve from a sequence of points, starting from the current pen position. At least 3 points are required to produce a curve (the first point is the implicit starting point).
+从当前的笔位置开始,用一系列点绘制立方贝塞尔曲线(原文:Draws a cubic Bezier curve from a sequence of points, starting from the current pen position.) 需要至少3点才能产生曲线 (第一点是隐式的起点.原文:the first point is the implicit starting point).
 
-=== Curv
+=== 平滑曲线(Curv)
 
-*Syntax*
+*语法*
+
 ----
  curv <point> <point> ...   (absolute)
 'curv <point> <point> ...   (relative)
 
-<point> : coordinates of a point (pair!).
+<point> : 坐标点 (pair!).
 ----
-*Description*
+*描述*
 
-Draws a smooth cubic Bezier curve from a sequence of points, starting from the current pen position. At least 2 points are required to produce a curve (the first point is the implicit starting point).
+从当前的笔位置开始,用一系列点绘制平滑的立方贝塞尔曲线, 需要至少2点才能产生曲线 (第一点是隐式的起点).
 
-NOTE: From http://www.w3.org/TR/SVG11/paths.html
+NOTE: 来自 http://www.w3.org/TR/SVG11/paths.html
 
-"The first control point is assumed to be the reflection of the second control point on the previous command relative to the current point. (If there is no previous curve command, the first control point is the current point.)"
+"第一个控制点被认为是在前一个命令的第二个控制点相对于当前点的反射.(如果之前没有curve曲线命令，则第一个控制点是当前点)"
+原文:"The first control point is assumed to be the reflection of the second control point on the previous command relative to the current point. (If there is no previous curve command, the first control point is the current point.)"
 
-=== Qcurve
+=== Q曲线(Qcurve)
 
-*Syntax*
+*语法*
+
 ----
  qcurve <point> <point> ...   (absolute)
 'qcurve <point> <point> ...   (relative)
 
-<point> : coordinates of a point (pair!).
+<point> : 坐标点 (pair!).
 ----
-*Description*
+*描述*
 
-Draws a quadratic Bezier curve from a sequence of points, starting from the current pen position. At least 2 points are required to produce a curve (the first point is the implicit starting point).
+从当前的笔位开始,用一系列点绘制二次贝塞尔曲线(原文:Draws a quadratic Bezier curve from a sequence of points, starting from the current pen position.) 需要至少2点才能产生曲线 (第一点是隐式的起点).
 
-=== Qcurv
+=== 平滑Q曲线(Qcurv)
 
-*Syntax*
+*语法*
+
 ----
  qcurv <point>   (absolute)
 'qcurv <point>   (relative)
 
-<point> : coordinates of the ending point (pair!).
+<point> : 终点 (pair!).
 ----
-*Description*
+*描述*
 
-Draws a smooth quadratic Bezier curve from the current pen position to the specified point.
+从当前笔位置到指定的终点绘制平滑二次贝塞尔曲线.
 
 NOTE: See See: http://www.w3.org/TR/SVG11/paths.html
 
