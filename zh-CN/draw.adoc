@@ -533,73 +533,76 @@ line-cap <mode>
 
 image::../images/line-cap.png[Line-cap,align="center"]
 
-=== Anti-alias 
+=== 抗锯齿)Anti-alias) 
 
 *语法*
 
 ----
 anti-alias <mode>
 
-<mode> : `on` to enable it or `off` to disable it.
+<mode> : `on`启用或`off`来禁用抗锯齿.
 ----
-*Description*
+*描述*
 
-Turns on/off the anti-aliasing mode for following Draw commands.
+给之后的绘制命令启用/关闭抗锯齿模式.
 
-NOTE: Anti-aliasing gives nicer visual rendering, but degrades performance.
+NOTE: 抗锯齿功能可以提供更好的视觉渲染功能，但会降低性能.
 
-=== Matrix 
+=== 矩阵(Matrix) 
 
-*Syntax*
+*语法*
+
 ----
 matrix <matrix-setup>
 matrix 'pen <matrix-setup>
 matrix 'fill-pen <matrix-setup>
 
-<matrix-setup> : the matrix which is pre/post-multiplied to current matrix (block!).
+<matrix-setup> : 前/后乘以当前矩阵的矩阵(原文:the matrix which is pre/post-multiplied to current matrix) (block!).
 ----
-*Description*
+*描述*
 
-Performs matrix multiplication. The current transformation matrix is pre-multiplied by this matrix.
+执行矩阵乘法. 当前的变换矩阵前乘以这个矩阵(原文:Performs matrix multiplication. The current transformation matrix is pre-multiplied by this matrix).
 
-The `matrix-setup` block must have 6 numbers (number!) in it. 
+ `matrix-setup` 必须有6个数字值 (number!) 在里面. 
 ----
 matrix [a b c d e f]
 ----
-The block values are used internally for building following transformation matrix:
+块内部用于构建以下转换矩阵:
 ----
 |a c e|
 |b d f|
 |0 0 1|
 ----
 
-When the `'pen` or `'fill-pen` lit-words are used, the multiplication is applied respectively to the current pen or current fill-pen.
+当 `'pen` 或 `'fill-pen` 原字(lit-words)被使用时, 分别对当前画笔或填充笔应用乘法(原文:the multiplication is applied respectively to the current pen or current fill-pen).
 
-=== Matrix-order
+=== 矩阵阶(Matrix-order)
 
-*Syntax*
+*语法*
+
 ----
 matrix-order <mode>
 
-<mode> : 'append or 'prepend (word!).
+<mode> : 'append 或 'prepend (word!).
 ----
-*Description*
+*描述*
 
-Defines if new matrices in subsequent matrix operations, are pre-multiplied (`prepend`, default mode) or post-multiplied (`append`) to the current matrix.
+定义后续矩阵运算中的新矩阵,对当前矩阵预乘(`prepend`, 默认模式)或后乘(`append`). (原文: Defines if new matrices in subsequent matrix operations, are pre-multiplied (`prepend`, default mode) or post-multiplied (`append`) to the current matrix).
 
-=== Reset-matrix 
+=== 重置矩阵(Reset-matrix)
 
-*Syntax*
+*语法*
+
 ----
 reset-matrix
 reset-matrix 'pen
 reset-matrix 'fill-pen
 ----
-*Description*
+*描述*
 
-Resets the current transformation matrix to a unit matrix.
+将当前变换矩阵重置为单位矩阵 (原文:Resets the current transformation matrix to a unit matrix.)
 
-When the `'pen` or `'fill-pen` lit-words are used, the reset is applied respectively to the current pen or current fill-pen.
+当 `'pen` 或 `'fill-pen` 原字(lit-words)被使用时, 重置分别应用于当前的画笔或当前的填充笔.(原文:the reset is applied respectively to the current pen or current fill-pen.)
 
 ----
 |1 0 0|
@@ -607,45 +610,48 @@ When the `'pen` or `'fill-pen` lit-words are used, the reset is applied respecti
 |0 0 1|
 ----
 
-=== Invert-matrix 
+=== 反矩阵(Invert-matrix)
 
-*Syntax*
+*语法*
+
 ----
 invert-matrix
 invert-matrix 'pen
 invert-matrix 'fill-pen
 ----
-*Description*
+*描述*
 
-Applies an algebraic matrix inversion operation on the current transformation matrix.
+对当前变换矩阵应用代数矩阵求逆操作 (原文:Applies an algebraic matrix inversion operation on the current transformation matrix.)
 
-When the `'pen` or `'fill-pen` lit-words are used, the inversion is applied respectively to the current pen or current fill-pen.
+当 `'pen` 或 `'fill-pen` 原字(lit-words)被使用时,求逆操作被用于当前的画笔或当前的填充笔. (原文: the inversion is applied respectively to the current pen or current fill-pen.)
 
-=== Push 
+=== 推(Push) 
 
-*Syntax*
+*语法*
+
 ----
 push <draw-block>
 
-<draw-block> : block of Draw commands (block!).
+<draw-block> : 绘制、绘图命令块 (block!).
 ----
-*Description*
+*描述*
 
-Saves the current state (transformations, clipping region, and pen settings) on the stack. You can then change the current transformation matrix, pens etc. inside the PUSH command block. After the PUSH command block, the current state is restored by pop from the stack. The PUSH command can be nested.
+在栈上保存当前状态 (转换，裁剪区域和画笔设置transformations, clipping region, and pen settings). 然后，您可以在PUSH的命令块内更改当前的转换矩阵、画笔等。在PUSH命令块之后，当前状态将从堆栈中的弹出并恢复。PUSH命令可以嵌套。（原文：You can then change the current transformation matrix, pens etc. inside the PUSH command block. After the PUSH command block, the current state is restored by pop from the stack. The PUSH command can be nested.）
 
-=== Rotate 
+=== 旋转(Rotate)
 
-*Syntax*
+*语法*
+
 ----
 rotate <angle> <center> [<commands>]
 rotate 'pen <angle>
 rotate 'fill-pen <angle>
 
-<angle>    : the angle in degrees (integer! float!).
-<center>   : (optional) center of rotation (pair!).
-<commands> : (optional) Draw dialect commands.
+<angle>    : 以度为单位的角度值,整数或浮点类型均可 (integer! float!).
+<center>   : （可选）旋转中心 (pair!).
+<commands> : （可选）Draw方言命令.
 ----
-*Description*
+*描述*
 
 Sets the clockwise rotation about a given point, in degrees. If optional `center` is not supplied, the rotate is about the origin of the current user coordinate system. Negative numbers can be used for counter-clockwise rotation. When a block is provided as last argument, the rotation will be applied only to the commands in that block.
 
