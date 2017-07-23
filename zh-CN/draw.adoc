@@ -487,7 +487,7 @@ image::../images/line-join.png[Line-join,align="center"]
 
 注: `miter-bevel` 模式将自动选择一个或另一个连接模式取决于斜角长度 (查阅 https://msdn.microsoft.com/en-us/library/windows/desktop/ms534148%28v=vs.85%29.aspx[this page] 有详细说明) .
 
-=== 线帽Line-cap 
+=== 线的两端的样式Line-cap 
 
 *Syntax*
 ----
@@ -497,9 +497,9 @@ line-cap <mode>
 ----
 *Description*
 
-Sets the new line's ending cap mode for line operations. Following values are accepted:
+给绘制线条操作设置线两端的样式. 以下值被接受:
 
-* `flat` (default)
+* `flat` (默认)
 * `square`
 * `round`
 
