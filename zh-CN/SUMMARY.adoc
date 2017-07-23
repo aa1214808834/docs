@@ -1,4 +1,4 @@
-= Summary
+= 概要
 
 . link:README.adoc[Red/Core 语言]
 .. link:date.adoc[Date! 数据类型]
