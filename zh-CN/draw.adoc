@@ -116,54 +116,54 @@ ellipse <top-left> <size>
 arc <center> <radius> <begin> <sweep>
 arc <center> <radius> <begin> <sweep> closed
 
-<center> : coordinates of the circle's center (pair!).
-<radius> : radius of the circle (pair!).
-<begin>  : starting angle in degrees (integer!).
-<sweep>  : angle between the starting and ending points of the arc in degrees (integer!).
+<center> : 中点坐标 (pair!).
+<radius> : 半径 (pair!).
+<begin>  : 起始角度以度为单位 (integer!).
+<sweep>  : 弧度的起点和终点之间的角度以度为单位 (integer!).
 ----
 *描述*
 
-Draws the arc of a circle from the provided center and radius values. The arc is defined by two angles values. An optional `closed` keyword can be used to draw a closed arc using two lines coming from the center point.
+使用提供的中点坐标、半径值和两个角度值绘制圆弧. 可选的“closed”关键字可用于使用来自中心点的两条线绘制闭合弧.
 
-=== Curve 
+=== 曲线(Curve) 
 
-*Syntax*
+*语法*
 ----
 curve <end-A> <control-A> <end-B>
 curve <end-A> <control-A> <control-B> <end-B>
 
-<end-A>     : end point A (pair!).
-<control-A> : control point A (pair!).
-<control-B> : control point B (pair!).
-<end-B>     : end point B (pair!).
+<end-A>     : 终点A (pair!).
+<control-A> : 控制点A (pair!).
+<control-B> : 控制点B (pair!).
+<end-B>     : 终点B (pair!).
 ----
-*Description*
+*描述*
 
-Draws a Bezier curve from 3 or 4 points:
+使用3或4个点来绘制贝塞尔曲线:
 
-* 3 points: 2 end points, 1 control point.
-* 4 points: 2 end points, 2 control points.
+* 3 个点: 2 个终点, 1 个控制点.
+* 4 个点: 2 个终点, 2 个控制点.
 
-Four points allow more complex curves to be created.
+4个点允许创建更复杂的曲线.
 
-=== Spline 
+=== 样条曲线(Spline) 
 
-*Syntax*
+*语法*
 ----
 spline <point> <point> ...
 spline <point> <point> ... closed
 
-<point> : a control point (pair!).
+<point> : 一个控制点 (pair!).
 ----
-*Description*
+*描述*
 
-Draws a B-Spline curve from a sequence of points. At least 3 points are required to produce a spline. The optional `closed` keyword will draw an extra segment from the end point to the start point, in order to close the spline.
+使用一系列点绘制一个B样条曲线. 需要至少3个点才能生成花键. 可选的“closed”关键字将从终点到起点绘制一个额外的段，以便关闭样条.
 
-NOTE: 2 points are accepted, but they will produce only a straight line.
+注: 2个点也可以被接受，但只能生成一条直线.
 
-=== Image 
+=== 图片(Image) 
 
-*Syntax*
+*语法*
 ----
 image <image>
 image <image> <top-left>
@@ -173,16 +173,16 @@ image <image> <top-left> <top-right> <bottom-left> <bottom-right> <color>
 image <image> <top-left> <top-right> <bottom-left> <bottom-right> <color> border
 image <image> <top-left> <top-right> <bottom-left> <bottom-right> <color> crop <offset> <size>
 
-<image>        : image to display (image! word!).
-<top-left>     : (optional) coordinate of top left edge of the image (pair!).
-<top-right>    : (optional) coordinate of top right edge of the image (pair!).
-<bottom-left>  : (optional) coordinate of bottom left edge of the image (pair!).
+<image>        : 指定一个需要显示的图像 (image! word!).
+<top-left>     : （可选）图像左上角的坐标 (pair!).
+<top-right>    : （可选）图像右上角的坐标 (pair!).
+<bottom-left>  : （可选）图像左下角的坐标 (pair!).
 <bottom-right> : (optional) coordinate of bottom right edge of the image (pair!).
 <color>        : (optional) key color to be made transparent (tuple! word!).
 <offset>       : (optional) position for starting cropping (pair!).
 <size>         : (optional) size of cropping (pair!).
 ----
-*Description*
+*描述*
 
 Paints an image using the provided information for position and width. If the image has no positioning information provided, then the image is painted at 0x0 coordinates. A color value can be optionally provided, it will be used for transparency. 
 
