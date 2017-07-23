@@ -9,7 +9,7 @@
 .. link:vid.adoc[VID 方言]
 .. link:draw.adoc[Draw 方言]
 
-### Other Docs
+### 其他文档
 
 . link:reactivity.adoc[反应式编程(Reactive Programming)]
 . link:libred.adoc[LibRed API]
