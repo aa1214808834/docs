@@ -1,4 +1,4 @@
-= Date! 数据类型
+= Date! 日期数据类型
 :toc:
 :numbered:
 
@@ -8,17 +8,17 @@
 
 Note:
 
-* `date!` 使用 https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar[proleptic Gregorian calendar](译:激进的公历)，年份可以从1582年开始. 在使用日期表示历史，前公历的日期时，应注意！Care should be taken when trying to represent historical, pre-Gregorian dates using `date!` values.
+* `date!` 使用 https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar[proleptic Gregorian calendar]，可延伸到1582年以后. 在使用 `date!` 日期表示历史时应注意前公历的日期！(原文:Care should be taken when trying to represent historical, pre-Gregorian dates using `date!` values.)
 
-* Supported dates range from `1/Jan/-16384` to `31/Dec/16383`, wrapping around on overflowing math operations. On input, that range is reduced to `1/Jan/-9999` to `31/Dec/9999` for practical reasons.
+* 支持的日期范围从 `1/Jan/-16384` 到 `31/Dec/16383`, 通过数学运算进行换算. 在输入时，出于实际情况，该范围简化为从`1/Jan/-9999` 到 `31/Dec/9999`。(原文: that range is reduced to `1/Jan/-9999` to `31/Dec/9999` for practical reasons.)
 
-== Creation
+== 创建 (Creation)
 
-`Date!` values can be created using literal syntax, or at runtime using a `make` constructor or a `to` conversion.
+`Date!` 变量可以使用字面语法创建, 或者在运行时使用`make`构造函数或`to`转换为日期类型.
 
-=== Literal syntax
+=== 字面语法(Literal syntax)
 
-Many different literal formats are supported, including all Rebol date formats and most of the ISO date standard.
+支持多种不同的字面语法格式, 包括所有Rebol日期格式和大多数ISO日期标准.
 ----
 <date>/<time>
 <date>/<time><zone>
@@ -61,36 +61,37 @@ Additional <date> formats when followed by T:
     <ss>
     <ss>.<dec>
 
-<sep>    : `-` or `/`
-<yyyy>   : 3 or 4 digits representing the year (4 digits for ISO dates)
-<yy>     : 2 digits representing the year relative to 2000
-<m>      : 1 or 2 digits representing the month
-<mm>     : 2 digits representing the month
-<mon>	 : 3 letters representing the beginning of the month
-<month>  : full name of the month
-<d>      : a digit representing the day of the week (1 to 7)
-<dd>     : 1 or 2 digits representing the day of the month
-<ddd>    : 3 digits representing the day of the year
-<ww>     : 2 digits reprensenting the week of the year
-<time>   : time! value
-<hour>   : 1 or 2 digits representing the hours
-<min>    : 1 or 2 digits representing the minutes
-<ss>     : 1 or 2 digits representing the seconds
-<dec>    : decimals for seconds
-<sign>   : `+` or `-` character (cannot be omitted)
-<min15>  : same as <min> but rounded to a multiple of 15.
-<hhmm>   : 4 digits for hours and minutes (no separator)
-<hhmmss> : 6 digits for hours, minutes and seconds (no separator)
+<sep>    : 分隔符号使用 `-` 或 `/`
+<yyyy>   : 3 或 4 位数字代表年份 (4 位数字表示国际标准日期-ISO dates)
+<yy>     : 2 位数字表示的年份,代表相对于2000年
+<m>      : 1或2位数字代表月份
+<mm>     : 2位数字代表月份
+<mon>	 : 3个字母代表月份
+<month>  : 月份的英语全名
+<d>      : 一个数字表示一周中的某一天 (1 到 7)
+<dd>     : 1或2位数字表示当月的某一天
+<ddd>    : 3位数字代表一年中的某一天
+<ww>     : 2位数字表示一年中的某一周
+<time>   : time! 变量
+<hour>   : 1或2位数字表示小时数
+<min>    : 1或2位数字表示分钟
+<ss>     : 1或2位数字代表秒
+<dec>    : 秒的小数
+<sign>   : `+` 或 `-` 符号 (不能省略)
+<min15>  : 和 <min> 相同但能被15整除,刻数.
+<hhmm>   : 4位数字，表示小时和分钟 (无分隔符)
+<hhmmss> : 6位数字，表示小时，分和秒（无分隔符）
 ----
 
-Many different input formats for literal dates are accepted. Out of range values (exceeding the specified digit numbers or beyond a field's norm) will result in a syntax error. When serialized again (e.g. for displaying), only the following canonical formats are used:
+(原文:Many different input formats for literal dates are accepted. (exceeding the specified digit numbers or beyond a field's norm) will result in a syntax error. When serialized again (e.g. for displaying), only the following canonical formats are used:)
+日期字面语法接受许多不同的输入格式.超出范围值 (超过指定的数字或超出字段的规范)将导致返回一个语法错误.当再次序列化（例如作屏显）时，仅使用以下规范格式:
 
 ----
 <dd>-<mon>-<yyyy>
 <dd>-<mon>-<yyyy>/<hour>:<min>:<sec>
 <dd>-<mon>-<yyyy>/<hour>:<min>:<sec><sign><hour>:<min15>
 ----
-When the time and/or zone fields are unset, they are omitted. For negative dates, the `/` separator is used instead of `-` for better readability.
+当时间和/或区域字段未设置时，它们会被省略.When the time and/or zone fields are unset, they are omitted. For negative dates, the `/` separator is used instead of `-` for better readability.
 
 Notes:
 
