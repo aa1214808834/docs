@@ -4,17 +4,44 @@
 :toclevels: 3
 :numbered:
 
++++
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+.wrap{}
+.wrap .box{border:2px solid red;width:200px;height:200px;margin-right: 10px;margin-bottom: 10px;}
+.wrap .box:hover h1{display:block;}
+.wrap .box h1{background:#333;color:white;display:none;}
+</style>
+</head>
+<body>
+</body>
+</html>
++++
+
+Red/System is a dialect (<a href="http://en.wikipedia.org/wiki/Domain-specific_language" target="_new">DSL</a>) of the Red programming language. Its purpose is to provide:
+
+*low-level system programming capabilities
+
+
 
 == Abstract 
 
 Draw is a dialect (DSL) of Red language that provides a simple declarative way to specify 2D drawing operations. Such operations are expressed as lists of ordered commands (using blocks of values), which can be freely constructed and changed at run-time.
-
++++
+	<div class="wrap"><div class="box"><h1>明天还爱我</h1></div></div>
++++
 Draw blocks can be rendered directly on top of an image using the `draw` function, or inside a View face using the `draw` facet (see link:view.html[View documentation]).
-
++++
+	<div class="wrap"><div class="box"><h1>明天还爱我</h1></div></div>
++++
 == Draw commands
 
 Commands can either be drawing instructions or settings for the drawing instructions. When a mode is set, it will affect all subsequent operations in the current Draw session (or until changed).
-
++++
+	<div class="wrap"><div class="box"><h1>明天还爱我</h1></div></div>
++++
 Most Draw commands require coordinates to be specified. The 2D coordinate system used is:
 
 * x axis: increasing from left to right of the display.
